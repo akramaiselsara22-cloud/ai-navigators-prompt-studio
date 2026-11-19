@@ -297,6 +297,7 @@ section, main {
   box-shadow: 0 0 26px rgba(245, 183, 0, 0.55);
 }
 
+/* 7-Stage Pipeline Workflow Bar */
 .pipeline-section {
   background: var(--bg-card);
   backdrop-filter: blur(14px);
@@ -356,6 +357,8 @@ section, main {
   align-items: center;
   gap: 6px;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 .pipeline-btn .step-icon {
   font-size: 1.25rem;
@@ -373,13 +376,13 @@ section, main {
   color: var(--text-muted);
 }
 .pipeline-btn:hover {
-  background: linear-gradient(180deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 254, 0.2) 100%);
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.18) 0%, rgba(0, 119, 254, 0.28) 100%);
   border-color: var(--cyan-glow);
-  box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
   transform: translateY(-3px);
 }
 .pipeline-btn:hover .step-icon {
-  transform: scale(1.15);
+  transform: scale(1.18);
   color: var(--gold-accent);
 }
 
@@ -859,6 +862,250 @@ textarea.form-control {
   margin-bottom: 12px;
 }
 
+/* 4 Pillars Interactive Cards */
+.pillar-card {
+  background: rgba(6, 14, 32, 0.7);
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 240, 255, 0.18);
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cyan-glow);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 240, 255, 0.35);
+  background: rgba(8, 20, 48, 0.92);
+}
+.pillar-card .pillar-hint {
+  font-size: 0.74rem;
+  color: var(--gold-accent);
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+.pillar-card:hover .pillar-hint {
+  color: var(--gold-metallic);
+  text-decoration: underline;
+}
+
+/* Modal Popup Window (الشاشة الصغيرة للشرح) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 7, 18, 0.84);
+  backdrop-filter: blur(10px);
+}
+.modal-card {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(180deg, #09132c 0%, #050b1a 100%);
+  border: 1px solid var(--border-cyan);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 240, 255, 0.28);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.modal-overlay.active .modal-card {
+  transform: scale(1) translateY(0);
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+  background: rgba(6, 12, 28, 0.65);
+}
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.modal-icon {
+  font-size: 2rem;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--border-cyan);
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+.modal-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  background: rgba(245, 183, 0, 0.12);
+  border: 1px solid var(--border-gold);
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-bottom: 4px;
+}
+.modal-title {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.3;
+}
+.modal-close {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #a0aec0;
+  font-size: 1.6rem;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.modal-close:hover {
+  background: rgba(255, 71, 87, 0.2);
+  border-color: #ff4757;
+  color: #ff4757;
+  transform: rotate(90deg);
+}
+.modal-body {
+  padding: 22px 24px;
+  overflow-y: auto;
+  flex: 1;
+  line-height: 1.7;
+}
+.modal-summary-box {
+  background: rgba(0, 240, 255, 0.06);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.modal-section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--cyan-glow);
+  margin-bottom: 10px;
+}
+.modal-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+}
+.modal-points-list li {
+  position: relative;
+  padding-right: 22px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+.modal-points-list li::before {
+  content: "✦";
+  position: absolute;
+  right: 0;
+  color: var(--gold-accent);
+  font-weight: bold;
+}
+.modal-takeaway-box {
+  background: rgba(245, 183, 0, 0.08);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  color: #ffeb99;
+}
+.modal-takeaway-box strong {
+  color: var(--gold-metallic);
+}
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(6, 12, 28, 0.7);
+  gap: 12px;
+}
+.btn-modal-action {
+  background: linear-gradient(135deg, #ffd700 0%, #f5b700 100%);
+  color: #040714;
+  font-weight: 800;
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 0 12px rgba(245, 183, 0, 0.3);
+}
+.btn-modal-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(245, 183, 0, 0.5);
+}
+.btn-modal-dismiss {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 9px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.btn-modal-dismiss:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
 .toast {
   position: fixed;
   bottom: 28px;
@@ -923,6 +1170,49 @@ textarea.form-control {
 
   <!-- Toast Notification -->
   <div id="toast" class="toast">إشعار فوري</div>
+
+  <!-- Info Modal Dialog (الشاشة الصغيرة للشرح المبسط والمختصر) -->
+  <div id="info-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span id="modal-icon" class="modal-icon">📋</span>
+          <div>
+            <span id="modal-badge" class="modal-badge">مسار التشغيل الاستراتيجي • المرحلة 1</span>
+            <h3 id="modal-title" class="modal-title">PLAN — التخطيط والتشخيص</h3>
+          </div>
+        </div>
+        <button type="button" id="modal-close-btn" class="modal-close" aria-label="إغلاق">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div id="modal-summary" class="modal-summary-box">
+          <!-- Short concise overview -->
+        </div>
+
+        <div class="modal-details-section">
+          <h4 id="modal-points-title" class="modal-section-title">📌 أبرز خطوات هذه المرحلة:</h4>
+          <ul id="modal-points" class="modal-points-list">
+            <!-- Dynamic bullets -->
+          </ul>
+        </div>
+
+        <div id="modal-takeaway" class="modal-takeaway-box">
+          <!-- Golden outcome/result -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="modal-action-btn" class="btn-modal-action">
+          <span>🚀</span> انتقل للأداة العملية
+        </button>
+        <button type="button" id="modal-dismiss-btn" class="btn-modal-dismiss">
+          إغلاق النافذة
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     
@@ -996,41 +1286,41 @@ textarea.form-control {
           <span>⚙️</span> مسار التشغيل الاستراتيجي (Strategic 7-Stage Workflow)
         </div>
         <div class="pipeline-slogan">
-          SMARTER • FASTER • BIGGER POSSIBILITIES
+          SMARTER • FASTER • BIGGER POSSIBILITIES (اضغط على أي خطوة لعرض الشرح)
         </div>
       </div>
       <div class="pipeline-steps">
-        <a href="#architect" class="pipeline-btn" data-step="plan">
+        <a href="#architect" class="pipeline-btn" data-step="plan" title="اضغط لعرض شرح مرحلة PLAN">
           <span class="step-icon">📋</span>
           <span class="step-name">PLAN</span>
           <span class="step-desc">التخطيط والتشخيص</span>
         </a>
-        <a href="#architect" class="pipeline-btn" data-step="access">
+        <a href="#architect" class="pipeline-btn" data-step="access" title="اضغط لعرض شرح مرحلة ACCESS">
           <span class="step-icon">📁</span>
           <span class="step-name">ACCESS</span>
           <span class="step-desc">حصر المعطيات</span>
         </a>
-        <a href="#architect" class="pipeline-btn" data-step="analyze">
+        <a href="#architect" class="pipeline-btn" data-step="analyze" title="اضغط لعرض شرح مرحلة ANALYZE">
           <span class="step-icon">🕸️</span>
           <span class="step-name">ANALYZE</span>
           <span class="step-desc">التحليل وتفكيك الزوايا</span>
         </a>
-        <a href="#architect" class="pipeline-btn" data-step="execute">
+        <a href="#architect" class="pipeline-btn" data-step="execute" title="اضغط لعرض شرح مرحلة EXECUTE">
           <span class="step-icon">⚙️</span>
           <span class="step-name">EXECUTE</span>
           <span class="step-desc">صياغة النسخ الأربع</span>
         </a>
-        <a href="#architect" class="pipeline-btn" data-step="decide">
+        <a href="#architect" class="pipeline-btn" data-step="decide" title="اضغط لعرض شرح مرحلة DECIDE">
           <span class="step-icon">⚖️</span>
           <span class="step-name">DECIDE</span>
           <span class="step-desc">بوابات الاعتماد G1 & G2</span>
         </a>
-        <a href="#auditor" class="pipeline-btn" data-step="measure">
+        <a href="#auditor" class="pipeline-btn" data-step="measure" title="اضغط لعرض شرح مرحلة MEASURE">
           <span class="step-icon">📊</span>
           <span class="step-name">MEASURE</span>
           <span class="step-desc">المحاكاة والقياس /100</span>
         </a>
-        <a href="#auditor" class="pipeline-btn" data-step="improve">
+        <a href="#auditor" class="pipeline-btn" data-step="improve" title="اضغط لعرض شرح مرحلة IMPROVE">
           <span class="step-icon">✅</span>
           <span class="step-name">IMPROVE</span>
           <span class="step-desc">الصقل والترقية المستمرة</span>
@@ -1338,19 +1628,38 @@ textarea.form-control {
             الذكاء الاصطناعي ليس مجرد أداة لإعطاء إجابات عادية، بل هو قوة مضاعفة للقدرات البشرية إذا أتقن المستخدم لغة الحوار والتحكم الدقيق في الأوامر (Prompt Engineering). هدفنا تحويل كل مستخدم من مجرد مجرب سطحي إلى <strong>مهندس أوامر واعٍ ومحترف</strong> قادر على بناء حلول وأنظمة ذكية ترفع الإنتاجية وتزيد الأرباح.
           </p>
 
-          <h4 style="color: var(--cyan-glow); font-size: 1.1rem; margin-bottom: 10px;">💎 الركائز الأربع لمجتمع AI Navigators:</h4>
+          <h4 style="color: var(--cyan-glow); font-size: 1.1rem; margin-bottom: 10px;">💎 الركائز الأربع لمجتمع AI Navigators (اضغط على أي ركيزة لعرض التفاصيل):</h4>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px;">
-            <div style="background: rgba(6, 14, 32, 0.7); padding: 12px; border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.15);">
-                <strong>🧠 Learn Better:</strong> تدريب عملي ومناهج متقدمة في صياغة الأوامر.
+            <div class="pillar-card" data-pillar="learn" title="اضغط لعرض تفاصيل ركيزة Learn Better">
+              <div>
+                <strong style="color: #fff; font-size: 1.05rem;">🧠 Learn Better:</strong>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">تدريب عملي ومناهج متقدمة في صياغة الأوامر.</p>
+              </div>
+              <span class="pillar-hint">🔍 اضغط لعرض الشرح المفصل ←</span>
             </div>
-            <div style="background: rgba(6, 14, 32, 0.7); padding: 12px; border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.15);">
-                <strong>💻 Build Smarter:</strong> بناء مساعدين رقميين وتطبيقات ذكاء اصطناعي.
+            
+            <div class="pillar-card" data-pillar="build" title="اضغط لعرض تفاصيل ركيزة Build Smarter">
+              <div>
+                <strong style="color: #fff; font-size: 1.05rem;">💻 Build Smarter:</strong>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">بناء مساعدين رقميين وتطبيقات ذكاء اصطناعي.</p>
+              </div>
+              <span class="pillar-hint">🔍 اضغط لعرض الشرح المفصل ←</span>
             </div>
-            <div style="background: rgba(6, 14, 32, 0.7); padding: 12px; border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.15);">
-                <strong>💡 Create Bigger:</strong> صناعة محتوى إبداعي وحملات تسويقية استثنائية.
+            
+            <div class="pillar-card" data-pillar="create" title="اضغط لعرض تفاصيل ركيزة Create Bigger">
+              <div>
+                <strong style="color: #fff; font-size: 1.05rem;">💡 Create Bigger:</strong>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">صناعة محتوى إبداعي وحملات تسويقية استثنائية.</p>
+              </div>
+              <span class="pillar-hint">🔍 اضغط لعرض الشرح المفصل ←</span>
             </div>
-            <div style="background: rgba(6, 14, 32, 0.7); padding: 12px; border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.15);">
-                <strong>🚀 Grow Together:</strong> مجتمع متكامل لتبادل الخبرات والفرص.
+            
+            <div class="pillar-card" data-pillar="grow" title="اضغط لعرض تفاصيل ركيزة Grow Together">
+              <div>
+                <strong style="color: #fff; font-size: 1.05rem;">🚀 Grow Together:</strong>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">مجتمع متكامل لتبادل الخبرات والفرص.</p>
+              </div>
+              <span class="pillar-hint">🔍 اضغط لعرض الشرح المفصل ←</span>
             </div>
           </div>
 
@@ -1978,28 +2287,279 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // 2. 7-Stage Pipeline Interactive Buttons
-  const pipelineStages = {
-    plan: { title: "مرحلة التخطيط (PLAN)", desc: "تشخيص المشكلة وتحديد الهدف الأسمى والجمهور المستهدف ونوع المهمة." },
-    access: { title: "مرحلة الوصول للموارد (ACCESS)", desc: "جمع المراجع والبيانات الموثقة وحصر ملفات المعرفة المعتمدة." },
-    analyze: { title: "مرحلة التحليل العميق (ANALYZE)", desc: "تفكيك الطلب وتشريح الزوايا وتحديد مجلس الخبراء المناسب." },
-    execute: { title: "مرحلة البناء والتنفيذ (EXECUTE)", desc: "صياغة النسخ الأربع وفق إطار الـ 12 قسماً القياسي الصارم." },
-    decide: { title: "مرحلة القرار والاعتماد (DECIDE)", desc: "مراجعة بوابات الاعتماد G1 و G2 قبل الإطلاق النهائي." },
-    measure: { title: "مرحلة القياس والمحاكاة (MEASURE)", desc: "اختبار البرومبت بحالات محاكاة حقيقية وتقييم الدرجة من 100." },
-    improve: { title: "مرحلة التحسين المستمر (IMPROVE)", desc: "سد الثغرات وإعادة التدريب وصقل الأمر للوصول لجودة 95%+." }
+  // 2. Data for 7-Stage Strategic Workflow & Community Pillars (الشاشات الصغيرة للشرح)
+  const WORKFLOW_STAGES = {
+    plan: {
+      badge: "مسار التشغيل الاستراتيجي • المرحلة 1",
+      icon: "📋",
+      title: "PLAN — التخطيط والتشخيص الذكي",
+      summary: "التخطيط هو حجر الأساس لأي برومبت عالي التأثير. يمنع البدء العشوائي ويشخص طبيعة المشكلة وأبعادها بدقة قبل إدخال أي أمر.",
+      pointsTitle: "📌 الإجراءات الأساسية في هذه المرحلة:",
+      points: [
+        "تحديد الدور الوظيفي (Role Persona) بدقة لضبط عمق التفكير ونبرة الصوت المناسبة.",
+        "صياغة الهدف الأسمى (Primary Objective) كمخرجات رقمية قابلة للقياس والتحقق.",
+        "تحديد هوية الجمهور المستهدف ومستوى معرفتهم لمنع الردود المعقدة أو السطحية."
+      ],
+      takeaway: "💡 النتيجة العملية: توفير 70% من وقت إعادة التعديل وضمان توجيه مباشر نحو الهدف النهائي.",
+      actionText: "انتقل لمُولّد الأوامر للتطبيق 🛠️",
+      actionTarget: "#architect"
+    },
+    access: {
+      badge: "مسار التشغيل الاستراتيجي • المرحلة 2",
+      icon: "📁",
+      title: "ACCESS — حصر المعطيات والمراجع",
+      summary: "الذكاء الاصطناعي يكون عبقرياً بقدر ما تقدمه له من حقائق موثوقة. هذه المرحلة تحمي مخرجاتك من الاعتماد على معلومات عامة أو غير دقيقة.",
+      pointsTitle: "📌 الإجراءات الأساسية في هذه المرحلة:",
+      points: [
+        "جمع ملفات المعرفة (Knowledge Bases)، الأرقام، وجداول البيانات ذات الصلة بالمهمة.",
+        "استبعاد البيانات القديمة أو المشكوك فيها لضمان سلامة القرار النهائي.",
+        "هيكلة المعطيات في نقاط واضحة ومحددة لسهولة استيعاب النموذج لها داخل سياق العمل."
+      ],
+      takeaway: "💡 النتيجة العملية: القضاء التام على التخمين وربط المخرجات ببيانات مؤسستك الواقعية.",
+      actionText: "انتقل لإدخال البيانات المرجعية 📁",
+      actionTarget: "#architect"
+    },
+    analyze: {
+      badge: "مسار التشغيل الاستراتيجي • المرحلة 3",
+      icon: "🕸️",
+      title: "ANALYZE — التحليل وتفكيك الزوايا",
+      summary: "تشريح المسألة وتناولها من زوايا متعددة قبل الشروع في كتابة المخرجات، لضمان تغطية كافة الاحتمالات وفرص النجاح.",
+      pointsTitle: "📌 الإجراءات الأساسية في هذه المرحلة:",
+      points: [
+        "استدعاء مجلس الخبراء المتعدد (Multi-Expert Council) لتناول الطلب من زوايا تسويقية، تقنية، وإدارية.",
+        "تفعيل التفكير المتسلسل (Chain of Thought) لإلزام النموذج بالاستدلال المنطقي خطوة بخطوة.",
+        "تحليل السيناريوهات المعاكسة وتحديد المحاذير والمخاطر المتوقعة مسبقاً."
+      ],
+      takeaway: "💡 النتيجة العملية: حلول استراتيجية عميقة تفوق بأضعاف الإجابات البدائية والمألوفة.",
+      actionText: "تفعيل خيارات التحليل المتقدم 🛠️",
+      actionTarget: "#architect"
+    },
+    execute: {
+      badge: "مسار التشغيل الاستراتيجي • المرحلة 4",
+      icon: "⚙️",
+      title: "EXECUTE — صياغة النسخ الأربع المعتمدة",
+      summary: "ترجمة كافة التخطيط والمعطيات إلى أوامر تنفيذية صارمة مبنية وفق معمارية الـ 12 قسماً العالمية المعتمدة.",
+      pointsTitle: "📌 الإجراءات الأساسية في هذه المرحلة:",
+      points: [
+        "صياغة النسخة العربية الشاملة متضمنة حواجز الحماية وهيكل المخرجات الدقيق.",
+        "إنشاء النسخة الإنجليزية العالمية للمهام البرمجية والتحليلات المتطورة.",
+        "توليد نسختين مهيأتين خصيصاً لمنصات ChatGPT و Google Gemini لتحقيق أفضل استجابة."
+      ],
+      takeaway: "💡 النتيجة العملية: حزمة أوامر رباعية احترافية جاهزة للنسخ والاستخدام الفوري.",
+      actionText: "توليد النسخ الأربع الآن ⚡",
+      actionTarget: "#architect"
+    },
+    decide: {
+      badge: "مسار التشغيل الاستراتيجي • المرحلة 5",
+      icon: "⚖️",
+      title: "DECIDE — بوابات الاعتماد الصارمة G1 & G2",
+      summary: "نظام التحكيم والحوكمة الصارم لضمان عدم تسليم أو استخدام أي أمر ذكاء اصطناعي دون فحص سلامته ومطابقته للمعايير.",
+      pointsTitle: "📌 الإجراءات الأساسية في هذه المرحلة:",
+      points: [
+        "بوابة الاعتماد G1 (Gate 1): فحص البرومبت والتأكد من خلوه من التناقض أو الثغرات وحمايته من الهلوسة.",
+        "بوابة الاعتماد G2 (Gate 2): مطابقة مخرجات النموذج للهدف الأساسي ونبرة الصوت والقيود المفروضة.",
+        "المراجعة البشرية النهائية لضمان أمن المعلومات وحفظ الخصوصية."
+      ],
+      takeaway: "💡 النتيجة العملية: درع حماية يضمن أعلى درجات الموثوقية وتجنب الأخطاء الكارثية في بيئات العمل.",
+      actionText: "افحص أمرك في بوابة الاعتماد ⚖️",
+      actionTarget: "#auditor"
+    },
+    measure: {
+      badge: "مسار التشغيل الاستراتيجي • المرحلة 6",
+      icon: "📊",
+      title: "MEASURE — المحاكاة وحساب الدرجة من 100",
+      summary: "التقييم الرقمي الموضوعي! إخضاع الأمر لخمسة محاور قياس معيارية لحساب درجة جودته الدقيقة من 100.",
+      pointsTitle: "📌 محاور التقييم الخمسة (20 نقطة لكل محور):",
+      points: [
+        "الدور والمهمة (Role & Task): وضوح شخصية الخبير وعمق الإجراء المطلوب.",
+        "السياق والمدخلات (Context): كفاية البيانات المرفقة والخلفية التوضيحية.",
+        "حواجز الحماية (Guardrails): آليات مكافحة الهلوسة والقيود الصارمة.",
+        "هيكل المخرجات (Format): التحديد الدقيق للشكل واللغة والقوالب.",
+        "الوضوح والعمق (Clarity): سهولة فهم التعليمات وخلوها من الغموض."
+      ],
+      takeaway: "💡 النتيجة العملية: بطاقة أداء تفصيلية تكشف نقاط القوة والثغرات القابلة للعلاج فوراً.",
+      actionText: "اختبر درجة أمرك في المدقق 🔍",
+      actionTarget: "#auditor"
+    },
+    improve: {
+      badge: "مسار التشغيل الاستراتيجي • المرحلة 7",
+      icon: "✅",
+      title: "IMPROVE — الصقل والترقية المستمرة",
+      summary: "التحسين التكراري الذكي! تحويل أي برومبت متوسط إلى أمر خارق بنقرة واحدة، وحفظ الأوامر الناجحة كأصول مؤسسية.",
+      pointsTitle: "📌 الإجراءات الأساسية في هذه المرحلة:",
+      points: [
+        "تطبيق الترقية التلقائية الفورية (Instant Auto-Fix) لمعالجة ثغرات البرومبت في ثانية واحدة.",
+        "رفع كفاءة الأمر للوصول لدرجة امتياز تفوق 85/100.",
+        "أرشفة الأوامر المعتمدة في خزانة الأوامر (The Master Vault) لتسهيل إعادة استخدامها وتدريب الفريق."
+      ],
+      takeaway: "💡 النتيجة العملية: تراكم معرفي وتحسين مستمر يجعل أداء فريقك أسرع وأكثر ذكاءً يوماً بعد يوم.",
+      actionText: "استكشف خزانة الأوامر المعتمدة 🗄️",
+      actionTarget: "#vault"
+    }
   };
 
+  const COMMUNITY_PILLARS = {
+    learn: {
+      badge: "ركائز مجتمع AI Navigators • الركيزة 1",
+      icon: "🧠",
+      title: "Learn Better — التعلّم المتقدم والتمكين",
+      summary: "الانتقال بك من مجرد مستخدم يطرح أسئلة عادية إلى مهندس أوامر استراتيجي يتقن أسرار النماذج اللغوية وهندستها المتقدمة.",
+      pointsTitle: "📌 ماذا يقدم لك المجتمع في هذه الركيزة:",
+      points: [
+        "مناهج عملية مكثفة تشرح أحدث أساليب Prompt Architecture والـ Few-Shot & Zero-Shot.",
+        "تحليل دوري لأحدث نماذج الذكاء الاصطناعي (Claude 3.7, GPT-4.5, Gemini 2.0 Pro) وكيفية استغلالها.",
+        "أدلة وحقائب تعليمية شاملة مع أمثلة واقعية جاهزة للتطبيق العملي."
+      ],
+      takeaway: "💡 القيمة المكتسبة: امتلاك المعرفة العميقة التي تجعلك في صدارة المحترفين في سوق العمل الحديث.",
+      actionText: "تواصل للانضمام لبرامجنا التعليمية 💬",
+      actionTarget: "https://wa.me/201037489146"
+    },
+    build: {
+      badge: "ركائز مجتمع AI Navigators • الركيزة 2",
+      icon: "💻",
+      title: "Build Smarter — هندسة الأنظمة والأتمتة",
+      summary: "عدم الاكتفاء بالأوامر المفردة، بل تحويل المعرفة إلى أدوات رقمية ومساعدين افتراضيين يعملون نيابة عنك 24/7.",
+      pointsTitle: "📌 ماذا يقدم لك المجتمع في هذه الركيزة:",
+      points: [
+        "بناء وتدريب مساعدين مخصصين (Custom GPTs & Gemini Gems) لخدمة أعمالك ومشاريعك.",
+        "تصميم مسارات أتمتة متقدمة تربط أدوات الذكاء الاصطناعي بأنظمة إدارة العمل اليومية.",
+        "تطوير أدوات تفاعلية وصفحات ويب ذكية مثل هذه المنصة لتسهيل العمل على فريقك وعملائك."
+      ],
+      takeaway: "💡 القيمة المكتسبة: توفير مئات الساعات ومضاعفة طاقتك الإنتاجية عشرات المرات بأقل تكلفة.",
+      actionText: "طلب بناء نظام ذكي مخصص 💬",
+      actionTarget: "https://wa.me/201037489146"
+    },
+    create: {
+      badge: "ركائز مجتمع AI Navigators • الركيزة 3",
+      icon: "💡",
+      title: "Create Bigger — صناعة المحتوى عالي التأثير",
+      summary: "توظيف الذكاء الاصطناعي لإطلاق حملات تسويقية استثنائية، كتابة نصوص إعلانية فيروسية، وتصميم منتجات رقمية مبتكرة.",
+      pointsTitle: "📌 ماذا يقدم لك المجتمع في هذه الركيزة:",
+      points: [
+        "أطر كتابة إعلانية مجربة تلامس نقاط ألم الجمهور وترفع معدلات التحويل (Conversion Rates).",
+        "صناعة محتوى مرئي وسيناريوهات فيديو سينمائية لمنصات التواصل الحديثة.",
+        "هندسة منتجات رقمية (كتب إلكترونية، دورات، كتيبات أدلة) سريعة الإنتاج وعالية القيمة."
+      ],
+      takeaway: "💡 القيمة المكتسبة: جذب عملاء نوعيين وتحقيق نمو حقيقي في المبيعات والانتشار الرقمي.",
+      actionText: "استشارة تسويق ومحتوى استراتيجي 💬",
+      actionTarget: "https://wa.me/201037489146"
+    },
+    grow: {
+      badge: "ركائز مجتمع AI Navigators • الركيزة 4",
+      icon: "🚀",
+      title: "Grow Together — بيئة النمو والشراكات",
+      summary: "النجاح في عالم الذكاء الاصطناعي يتطلب بيئة داعمة وشركاء طموحين يشاركونك الشغف ويفتحون أمامك أبواب الفرص.",
+      pointsTitle: "📌 ماذا يقدم لك المجتمع في هذه الركيزة:",
+      points: [
+        "شبكة علاقات مهنية تجمع رواد الأعمال وصناع المحتوى والخبراء التقنيين.",
+        "نقاشات حية وجلسات عصف ذهني وحل جماعي للتحديات التقنية والتسويقية المعقدة.",
+        "فرص تعاون ومشاريع مشتركة وتبادل للأفكار والأدوات والبرومبتات الناجحة."
+      ],
+      takeaway: "💡 القيمة المكتسبة: سرعة الوصول إلى أهدافك بفضل قوة الدعم الجماعي والبيئة المحفزة.",
+      actionText: "انضم إلى مجتمع AI Navigators 🚀",
+      actionTarget: "https://wa.me/201037489146"
+    }
+  };
+
+  // 3. Modal Popup Logic (الشاشة الصغيرة)
+  const infoModal = document.getElementById('info-modal');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalCloseBtn = document.getElementById('modal-close-btn');
+  const modalDismissBtn = document.getElementById('modal-dismiss-btn');
+  const modalActionBtn = document.getElementById('modal-action-btn');
+  const modalBadge = document.getElementById('modal-badge');
+  const modalIcon = document.getElementById('modal-icon');
+  const modalTitle = document.getElementById('modal-title');
+  const modalSummary = document.getElementById('modal-summary');
+  const modalPointsTitle = document.getElementById('modal-points-title');
+  const modalPoints = document.getElementById('modal-points');
+  const modalTakeaway = document.getElementById('modal-takeaway');
+
+  let currentModalActionTarget = '';
+
+  function openInfoModal(data) {
+    if (!infoModal || !data) return;
+    modalBadge.textContent = data.badge || '';
+    modalIcon.textContent = data.icon || '📌';
+    modalTitle.textContent = data.title || '';
+    modalSummary.textContent = data.summary || '';
+    modalPointsTitle.textContent = data.pointsTitle || '📌 أبرز النقاط:';
+    modalPoints.innerHTML = (data.points || []).map(p => `<li>${p}</li>`).join('');
+    modalTakeaway.innerHTML = data.takeaway || '';
+    
+    currentModalActionTarget = data.actionTarget || '';
+    if (data.actionText) {
+      modalActionBtn.innerHTML = `<span>🚀</span> ${data.actionText}`;
+      modalActionBtn.style.display = 'inline-flex';
+    } else {
+      modalActionBtn.style.display = 'none';
+    }
+
+    infoModal.style.display = 'flex';
+    setTimeout(() => {
+      infoModal.classList.add('active');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeInfoModal() {
+    if (!infoModal) return;
+    infoModal.classList.remove('active');
+    setTimeout(() => {
+      infoModal.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 250);
+  }
+
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeInfoModal);
+  if (modalDismissBtn) modalDismissBtn.addEventListener('click', closeInfoModal);
+  if (modalBackdrop) modalBackdrop.addEventListener('click', closeInfoModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && infoModal && infoModal.classList.contains('active')) {
+      closeInfoModal();
+    }
+  });
+
+  if (modalActionBtn) {
+    modalActionBtn.addEventListener('click', () => {
+      closeInfoModal();
+      if (!currentModalActionTarget) return;
+      if (currentModalActionTarget.startsWith('http')) {
+        window.open(currentModalActionTarget, '_blank');
+      } else {
+        const targetEl = document.querySelector(currentModalActionTarget);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  }
+
+  // Hook pipeline buttons to open the modal
   document.querySelectorAll('.pipeline-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       const step = btn.getAttribute('data-step');
-      const info = pipelineStages[step];
-      if (info) {
-        showToast(`📍 ${info.title}: ${info.desc}`);
+      const data = WORKFLOW_STAGES[step];
+      if (data) {
+        openInfoModal(data);
       }
     });
   });
 
-  // 3. Prompt Generator (Architect)
+  // Hook 4 community pillars cards to open the modal
+  document.querySelectorAll('.pillar-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const pillarKey = card.getAttribute('data-pillar');
+      const data = COMMUNITY_PILLARS[pillarKey];
+      if (data) {
+        openInfoModal(data);
+      }
+    });
+  });
+
+  // 4. Prompt Generator (Architect)
   const generatorForm = document.getElementById('prompt-generator-form');
   const presetSelector = document.getElementById('preset-selector');
   const clearFieldsBtn = document.getElementById('btn-clear-fields');
@@ -2202,7 +2762,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // 4. Prompt Auditor
+  // 5. Prompt Auditor
   const auditBtn = document.getElementById('btn-run-audit');
   const auditInput = document.getElementById('audit-text-input');
   const auditResultPanel = document.getElementById('audit-result-panel');
@@ -2262,7 +2822,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // 5. Prompt Vault Rendering & Filtering
+  // 6. Prompt Vault Rendering & Filtering
   const vaultGrid = document.getElementById('vault-grid');
   const vaultFilterButtons = document.querySelectorAll('.vault-filter-btn');
   const vaultSearchInput = document.getElementById('vault-search-input');
@@ -2332,7 +2892,7 @@ document.addEventListener('DOMContentLoaded', function() {
     vaultSearchInput.addEventListener('input', renderVault);
   }
 
-  // 6. Frameworks Rendering
+  // 7. Frameworks Rendering
   const frameworksList = document.getElementById('frameworks-list');
   if (frameworksList && typeof FRAMEWORKS_DATA !== 'undefined') {
     frameworksList.innerHTML = FRAMEWORKS_DATA.map(fw => `
